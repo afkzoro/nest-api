@@ -9,6 +9,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
