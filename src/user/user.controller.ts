@@ -1,5 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+
 
 @Controller('users')
 export class UserController {
@@ -7,7 +9,7 @@ export class UserController {
     // route => /users/me; Protect route with JWT token 
     @UseGuards(AuthGuard('jwt'))
     @Get('me')
-    getme() {
-        return 'user info';
+    getme(@Req() req: Request) {
+        return req.user
     }
 }
