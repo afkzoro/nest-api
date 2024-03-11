@@ -24,7 +24,7 @@ export class AuthService {
                 },
 
             })
-            
+
             return this.signToken(user.id, user.email)
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
