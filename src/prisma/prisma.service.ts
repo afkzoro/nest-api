@@ -13,6 +13,6 @@ export class PrismaService extends PrismaClient{
             }
         })
 
-        console.log(config)
+       // console.log(config)
     }
 }
