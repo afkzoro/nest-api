@@ -24,10 +24,8 @@ export class AuthService {
                 },
 
             })
-
-            delete user.hash
-            // Return the saved user
-            return user
+            
+            return this.signToken(user.id, user.email)
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
@@ -36,19 +34,6 @@ export class AuthService {
             }
             
         }
-        // generate the password hash
-        const hash = await argon.hash(dto.password);
-
-        // Save the new user in the database
-        const user = await this.prisma.user.create({
-            data: {
-                email: dto.email,
-                hash,
-            },
-
-        })
-
-        return this.signToken(user.id, user.email)
     }
 
     async signin(dto: AuthDto) {
