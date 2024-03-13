@@ -19,6 +19,7 @@ describe('App e2e', () => {
           }))
 
         await app.init()
+        await app.listen(3333)
 
         prisma = app.get(PrismaService)
         await prisma.cleanDb()
@@ -39,6 +40,7 @@ describe('App e2e', () => {
                 .post('http://localhost:3333/auth/signup')
                 .withBody(dto)
                 .expectStatus(201)
+                .inspect()
             })
         })
 
