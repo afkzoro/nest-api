@@ -3,6 +3,7 @@ import { AppModule } from '../src/app.module'
 import * as pactum from 'pactum'
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
+import { AuthDto } from 'src/auth/dto';
 
 describe('App e2e', () => {
     let app: INestApplication
@@ -28,7 +29,17 @@ describe('App e2e', () => {
 
     describe('Auth', () => {
         describe('Signup', () => {
-            it.todo('should signup')
+            it('should signup', () => {
+                const dto: AuthDto = {
+                    email: 'testemail1@gmail.com',
+                    password: '123'
+                }
+                return pactum
+                .spec()
+                .post('http://localhost:3333/auth/signup')
+                .withBody(dto)
+                .expectStatus(201)
+            })
         })
 
         describe('Signin', () => {
