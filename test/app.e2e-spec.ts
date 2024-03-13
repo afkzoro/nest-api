@@ -4,6 +4,7 @@ import * as pactum from 'pactum'
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from 'src/auth/dto';
+import { EditUserDto } from 'src/user/dto';
 
 describe('App e2e', () => {
     let app: INestApplication
@@ -126,7 +127,23 @@ describe('App e2e', () => {
             })
         })
 
-        describe('Edit user', () => {})
+        describe('Edit user', () => {
+            it('should edit user', () => {
+                const dto: EditUserDto = {
+                    firstName: "hydra",
+                    email: "hydra@gmail.com"
+                }
+                return pactum
+                .spec()
+                .patch('/users')
+                .withBearerToken('$S{userAt}')
+                .expectStatus(200)
+                .inspect()
+                .withBody(dto)
+                .expectBodyContains(dto.firstName)
+                .expectBodyContains(dto.email)
+            })
+        })
     });
 
     describe('Bookmarks', () => {
